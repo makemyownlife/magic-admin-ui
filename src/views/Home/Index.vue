@@ -211,45 +211,17 @@ let projects = reactive<Project[]>([])
 const getProject = async () => {
   const data = [
     {
-      name: 'ruoyi-vue-pro',
+      name: 'magic-admin',
       icon: 'akar-icons:github-fill',
-      message: 'https://github.com/YunaiV/ruoyi-vue-pro',
+      message: 'https://github.com/makemyownlife/magic-admin',
       personal: 'Spring Boot 单体架构',
       time: new Date()
     },
     {
       name: 'yudao-ui-admin-vue3',
       icon: 'logos:vue',
-      message: 'https://github.com/yudaocode/yudao-ui-admin-vue3',
+      message: 'https://github.com/makemyownlife/magic-admin-ui',
       personal: 'Vue3 + element-plus',
-      time: new Date()
-    },
-    {
-      name: 'yudao-ui-admin-vben',
-      icon: 'logos:vue',
-      message: 'https://github.com/yudaocode/yudao-ui-admin-vben',
-      personal: 'Vue3 + vben(antd)',
-      time: new Date()
-    },
-    {
-      name: 'yudao-cloud',
-      icon: 'akar-icons:github',
-      message: 'https://github.com/YunaiV/yudao-cloud',
-      personal: 'Spring Cloud 微服务架构',
-      time: new Date()
-    },
-    {
-      name: 'yudao-ui-mall-uniapp',
-      icon: 'logos:vue',
-      message: 'https://github.com/yudaocode/yudao-ui-admin-uniapp',
-      personal: 'Vue3 + uniapp',
-      time: new Date()
-    },
-    {
-      name: 'yudao-ui-admin-vue2',
-      icon: 'logos:vue',
-      message: 'https://github.com/yudaocode/yudao-ui-admin-vue2',
-      personal: 'Vue2 + element-ui',
       time: new Date()
     }
   ]
