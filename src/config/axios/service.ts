@@ -160,8 +160,6 @@ service.interceptors.response.use(
           t('sys.api.errMsg901') +
           '</div>' +
           '<div> &nbsp; </div>' +
-          '<div>参考 https://doc.iocoder.cn/ 教程</div>' +
-          '<div> &nbsp; </div>' +
           '<div>5 分钟搭建本地环境</div>'
       })
       return Promise.reject(new Error(msg))

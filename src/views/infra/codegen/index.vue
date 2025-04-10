@@ -1,8 +1,4 @@
 <template>
-  <doc-alert title="代码生成（单表）" url="https://doc.iocoder.cn/new-feature/" />
-  <doc-alert title="代码生成（树表）" url="https://doc.iocoder.cn/new-feature/tree/" />
-  <doc-alert title="代码生成（主子表）" url="https://doc.iocoder.cn/new-feature/master-sub/" />
-  <doc-alert title="单元测试" url="https://doc.iocoder.cn/unit-test/" />
 
   <!-- 搜索 -->
   <ContentWrap>
