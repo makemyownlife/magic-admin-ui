@@ -1,5 +1,4 @@
 <template>
-  <doc-alert title="SaaS 多租户" url="https://doc.iocoder.cn/saas-tenant/" />
 
   <!-- 搜索 -->
   <ContentWrap>

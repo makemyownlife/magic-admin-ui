@@ -1,5 +1,4 @@
 <template>
-  <doc-alert title="站内信配置" url="https://doc.iocoder.cn/notify/" />
 
   <!-- 搜索工作栏 -->
   <ContentWrap>

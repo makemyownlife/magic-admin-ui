@@ -1,5 +1,4 @@
 <template>
-  <doc-alert title="OAuth 2.0（SSO 单点登录)" url="https://doc.iocoder.cn/oauth2/" />
 
   <ContentWrap>
     <!-- 搜索工作栏 -->

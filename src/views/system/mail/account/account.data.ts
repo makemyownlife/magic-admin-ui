@@ -20,7 +20,6 @@ export const rules = reactive({
   starttlsEnable: [required]
 })
 
-// CrudSchema：https://doc.iocoder.cn/vue3/crud-schema/
 const crudSchemas = reactive<CrudSchema[]>([
   {
     label: '邮箱',
