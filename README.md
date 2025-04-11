@@ -3,5 +3,9 @@
 
 ## 🐶 新手必读
 * nodejs > 16.18.0 && pnpm > 8.6.0 (强制使用pnpm)
-* pnpm i -g pnpm
+
+```bash
+pnpm install
+npm run dev 
+```
 
