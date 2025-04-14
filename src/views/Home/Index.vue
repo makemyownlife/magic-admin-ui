@@ -65,7 +65,7 @@
             <el-link
               type="primary"
               :underline="false"
-              href="https://github.com/yudaocode"
+              href="https://github.com/makemyownlife"
               target="_blank"
             >
               {{ t('action.more') }}
