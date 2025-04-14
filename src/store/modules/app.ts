@@ -127,9 +127,6 @@ export const useAppStore = defineStore('app', {
     getLocale(): boolean {
       return this.locale
     },
-    getMessage(): boolean {
-      return this.message
-    },
     getTagsView(): boolean {
       return this.tagsView
     },

@@ -1,6 +1,5 @@
 <script lang="tsx">
 import { defineComponent, computed } from 'vue'
-import { Message } from '@/layout/components//Message'
 import { Collapse } from '@/layout/components/Collapse'
 import { UserInfo } from '@/layout/components/UserInfo'
 import { Screenfull } from '@/layout/components/Screenfull'
@@ -38,9 +37,6 @@ const layout = computed(() => appStore.getLayout)
 // 多语言图标
 const locale = computed(() => appStore.getLocale)
 
-// 消息图标
-const message = computed(() => appStore.getMessage)
-
 export default defineComponent({
   name: 'ToolHeader',
   setup() {
@@ -74,9 +70,6 @@ export default defineComponent({
               class="custom-hover"
               color="var(--top-header-text-color)"
             ></LocaleDropdown>
-          ) : undefined}
-          {message.value ? (
-            <Message class="custom-hover" color="var(--top-header-text-color)"></Message>
           ) : undefined}
           <UserInfo></UserInfo>
         </div>
