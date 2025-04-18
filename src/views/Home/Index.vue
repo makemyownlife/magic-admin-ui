@@ -218,7 +218,7 @@ const getProject = async () => {
       time: new Date()
     },
     {
-      name: 'yudao-ui-admin-vue3',
+      name: 'magic-admin-ui',
       icon: 'logos:vue',
       message: 'https://github.com/makemyownlife/magic-admin-ui',
       personal: 'Vue3 + element-plus',
