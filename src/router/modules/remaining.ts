@@ -89,18 +89,6 @@ const remainingRouter: AppRouteRecordRaw[] = [
           icon: 'ep:user',
           title: t('common.profile')
         }
-      },
-      {
-        path: 'notify-message',
-        component: () => import('@/views/system/notify/my/index.vue'),
-        name: 'MyNotifyMessage',
-        meta: {
-          canTo: true,
-          hidden: true,
-          noTagsView: false,
-          icon: 'ep:message',
-          title: '我的站内信'
-        }
       }
     ]
   },
