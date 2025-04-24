@@ -233,27 +233,21 @@ let notice = reactive<Notice[]>([])
 const getNotice = async () => {
   const data = [
     {
-      title: '系统支持 JDK 8/17/21，Vue 2/3',
+      title: '系统支持 JDK 8，Vue 2/3',
       type: '通知',
-      keys: ['通知', '8', '17', '21', '2', '3'],
+      keys: ['通知', '8', '17'],
       date: new Date()
     },
     {
-      title: '后端提供 Spring Boot 2.7/3.2 + Cloud 双架构',
+      title: '后端提供 Spring Boot 2.7',
       type: '公告',
-      keys: ['公告', 'Boot', 'Cloud'],
+      keys: ['公告', 'Boot'],
       date: new Date()
     },
     {
       title: '全部开源，个人与企业可 100% 直接使用，无需授权',
       type: '通知',
       keys: ['通知', '无需授权'],
-      date: new Date()
-    },
-    {
-      title: '国内使用最广泛的快速开发平台，超 300+ 人贡献',
-      type: '公告',
-      keys: ['公告', '最广泛'],
       date: new Date()
     }
   ]
