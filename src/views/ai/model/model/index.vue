@@ -66,11 +66,6 @@
       </el-table-column>
       <el-table-column label="模型名字" align="center" prop="name" min-width="180" />
       <el-table-column label="模型标识" align="center" prop="model" min-width="180" />
-      <el-table-column label="API 秘钥" align="center" prop="keyId" min-width="140">
-        <template #default="scope">
-          <span>{{ apiKeyList.find((item) => item.id === scope.row.keyId)?.name }}</span>
-        </template>
-      </el-table-column>
       <el-table-column label="排序" align="center" prop="sort" min-width="80" />
       <el-table-column label="状态" align="center" prop="status" min-width="80">
         <template #default="scope">
@@ -185,7 +180,6 @@ const handleDelete = async (id: number) => {
 /** 初始化 **/
 onMounted(async () => {
   await getList()
-  // 获得下拉数据
-  apiKeyList.value = await ApiKeyApi.getApiKeySimpleList()
+  // 下面代码可以做其他的事情
 })
 </script>

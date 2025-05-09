@@ -14,6 +14,7 @@
             :key="dict.value"
             :label="dict.label"
             :value="dict.value"
+            :disabled="formData.id"
           />
         </el-select>
       </el-form-item>
@@ -29,16 +30,6 @@
             :key="dict.value"
             :label="dict.label"
             :value="dict.value"
-          />
-        </el-select>
-      </el-form-item>
-      <el-form-item label="API 秘钥" prop="keyId">
-        <el-select v-model="formData.keyId" placeholder="请选择 API 秘钥" clearable>
-          <el-option
-            v-for="apiKey in apiKeyList"
-            :key="apiKey.id"
-            :label="apiKey.name"
-            :value="apiKey.id"
           />
         </el-select>
       </el-form-item>
@@ -111,7 +102,7 @@
 </template>
 <script setup lang="ts">
 import { ModelApi, ModelVO } from '@/api/ai/model/model'
-import { ApiKeyApi, ApiKeyVO } from '@/api/ai/model/apiKey'
+
 import { CommonStatusEnum } from '@/utils/constants'
 import { DICT_TYPE, getIntDictOptions, getStrDictOptions } from '@/utils/dict'
 import { AiModelTypeEnum } from '@/views/ai/utils/constants'
@@ -120,15 +111,19 @@ import { AiModelTypeEnum } from '@/views/ai/utils/constants'
 defineOptions({ name: 'ModelForm' })
 
 const { t } = useI18n() // 国际化
+
 const message = useMessage() // 消息弹窗
 
 const dialogVisible = ref(false) // 弹窗的是否展示
+
 const dialogTitle = ref('') // 弹窗的标题
+
 const formLoading = ref(false) // 表单的加载中：1）修改时的数据加载；2）提交的按钮禁用
+
 const formType = ref('') // 表单的类型：create - 新增；update - 修改
+
 const formData = ref({
   id: undefined,
-  keyId: undefined,
   name: undefined,
   model: undefined,
   platform: undefined,
@@ -139,8 +134,8 @@ const formData = ref({
   maxTokens: undefined,
   maxContexts: undefined
 })
+
 const formRules = reactive({
-  keyId: [{ required: true, message: 'API 秘钥不能为空', trigger: 'blur' }],
   name: [{ required: true, message: '模型名字不能为空', trigger: 'blur' }],
   model: [{ required: true, message: '模型标识不能为空', trigger: 'blur' }],
   platform: [{ required: true, message: '所属平台不能为空', trigger: 'blur' }],
@@ -148,8 +143,8 @@ const formRules = reactive({
   sort: [{ required: true, message: '排序不能为空', trigger: 'blur' }],
   status: [{ required: true, message: '状态不能为空', trigger: 'blur' }]
 })
+
 const formRef = ref() // 表单 Ref
-const apiKeyList = ref([] as ApiKeyVO[]) // API 密钥列表
 
 /** 打开弹窗 */
 const open = async (type: string, id?: number) => {
@@ -166,8 +161,6 @@ const open = async (type: string, id?: number) => {
       formLoading.value = false
     }
   }
-  // 获得下拉数据
-  apiKeyList.value = await ApiKeyApi.getApiKeySimpleList()
 }
 defineExpose({ open }) // 提供 open 方法，用于打开弹窗
 
@@ -204,7 +197,6 @@ const submitForm = async () => {
 const resetForm = () => {
   formData.value = {
     id: undefined,
-    keyId: undefined,
     name: undefined,
     model: undefined,
     platform: undefined,

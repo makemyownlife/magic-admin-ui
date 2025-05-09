@@ -3,7 +3,6 @@ import request from '@/config/axios'
 // AI 模型 VO
 export interface ModelVO {
   id: number // 编号
-  keyId: number // API 秘钥编号
   name: string // 模型名字
   model: string // 模型标识
   platform: string // 模型平台
