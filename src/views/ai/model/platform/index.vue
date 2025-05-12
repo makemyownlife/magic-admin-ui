@@ -12,7 +12,7 @@
       <el-form-item label="配置名字" prop="name">
         <el-input
           v-model="queryParams.name"
-          placeholder="请输入模型名字"
+          placeholder="请输入配置名字"
           clearable
           @keyup.enter="handleQuery"
           class="!w-240px"
@@ -30,15 +30,22 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button @click="handleQuery"><Icon icon="ep:search" class="mr-5px" /> 搜索</el-button>
-        <el-button @click="resetQuery"><Icon icon="ep:refresh" class="mr-5px" /> 重置</el-button>
+        <el-button @click="handleQuery">
+          <Icon icon="ep:search" class="mr-5px"/>
+          搜索
+        </el-button>
+        <el-button @click="resetQuery">
+          <Icon icon="ep:refresh" class="mr-5px"/>
+          重置
+        </el-button>
         <el-button
           type="primary"
           plain
           @click="openForm('create')"
           v-hasPermi="['ai:model:create']"
         >
-          <Icon icon="ep:plus" class="mr-5px" /> 新增
+          <Icon icon="ep:plus" class="mr-5px"/>
+          新增
         </el-button>
       </el-form-item>
 
@@ -48,27 +55,26 @@
 
   <!-- 列表 -->
   <ContentWrap>
+
     <el-table v-loading="loading" :data="list" :stripe="true" :show-overflow-tooltip="true">
 
       <el-table-column label="所属平台" align="center" prop="platform" min-width="100">
         <template #default="scope">
-          <dict-tag :type="DICT_TYPE.AI_PLATFORM" :value="scope.row.platform" />
+          <dict-tag :type="DICT_TYPE.AI_PLATFORM" :value="scope.row.platform"/>
         </template>
       </el-table-column>
 
       <el-table-column label="配置名称" align="center" prop="platform" min-width="100">
         <template #default="scope">
-          <dict-tag :type="DICT_TYPE.AI_MODEL_TYPE" :value="scope.row.type" />
+          <dict-tag :type="DICT_TYPE.AI_MODEL_TYPE" :value="scope.row.type"/>
         </template>
       </el-table-column>
 
-      <el-table-column label="模型名字" align="center" prop="name" min-width="180" />
-
-      <el-table-column label="排序" align="center" prop="sort" min-width="80" />
+      <el-table-column label="排序" align="center" prop="sort" min-width="80"/>
 
       <el-table-column label="状态" align="center" prop="status" min-width="80">
         <template #default="scope">
-          <dict-tag :type="DICT_TYPE.COMMON_STATUS" :value="scope.row.status" />
+          <dict-tag :type="DICT_TYPE.COMMON_STATUS" :value="scope.row.status"/>
         </template>
       </el-table-column>
 
@@ -106,22 +112,24 @@
   </ContentWrap>
 
   <!-- 表单弹窗：添加/修改 -->
-  <PlatformForm ref="formRef" @success="getList" />
+  <PlatformForm ref="formRef" @success="getList"/>
 
 </template>
 
 <script setup lang="ts">
-import { ModelApi, ModelVO } from '@/api/ai/model/model'
-import PlatformForm from './PlatformForm.vue'
-import { DICT_TYPE } from '@/utils/dict'
-import { ApiKeyApi, ApiKeyVO } from '@/api/ai/model/apiKey'
 
-/** API 模型列表 */
-defineOptions({ name: 'AiModel' })
+import {PlatformApi, PlatformVO} from '@/api/ai/model/platform'
+
+import PlatformForm from './PlatformForm.vue'
+
+import {DICT_TYPE} from '@/utils/dict'
+
+/** API 厂商配置(绑定) */
+defineOptions({name: 'AiPlatform'})
 
 const message = useMessage() // 消息弹窗
 
-const { t } = useI18n() // 国际化
+const {t} = useI18n() // 国际化
 
 const loading = ref(true) // 列表的加载中
 
@@ -139,15 +147,11 @@ const queryParams = reactive({
 
 const queryFormRef = ref() // 搜索的表单
 
-const apiKeyList = ref([] as ApiKeyVO[]) // API 密钥列表
-
 /** 查询列表 */
 const getList = async () => {
   loading.value = true
   try {
-    const data = await ModelApi.getModelPage(queryParams)
-    list.value = data.list
-    total.value = data.total
+
   } finally {
     loading.value = false
   }
@@ -173,20 +177,12 @@ const openForm = (type: string, id?: number) => {
 
 /** 删除按钮操作 */
 const handleDelete = async (id: number) => {
-  try {
-    // 删除的二次确认
-    await message.delConfirm()
-    // 发起删除
-    await ModelApi.deleteModel(id)
-    message.success(t('common.delSuccess'))
-    // 刷新列表
-    await getList()
-  } catch {}
+
 }
 
-/** 初始化 **/
-onMounted(async () => {
-  // await getList()
-  // 下面代码可以做其他的事情
-})
+// /** 初始化 **/
+// onMounted(async () => {
+//   // await getList()
+//   // 下面代码可以做其他的事情
+// })
 </script>
