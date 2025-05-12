@@ -58,15 +58,27 @@
 
     <el-table v-loading="loading" :data="list" :stripe="true" :show-overflow-tooltip="true">
 
-      <el-table-column label="所属平台" align="center" prop="platform" min-width="100">
+      <el-table-column label="平台名" align="center" prop="platform">
         <template #default="scope">
           <dict-tag :type="DICT_TYPE.AI_PLATFORM" :value="scope.row.platform"/>
         </template>
       </el-table-column>
 
-      <el-table-column label="配置名称" align="center" prop="platform" min-width="100">
+      <el-table-column label="配置名称" align="center" prop="platform" min-width="50">
         <template #default="scope">
-          <dict-tag :type="DICT_TYPE.AI_MODEL_TYPE" :value="scope.row.type"/>
+          <dict-tag :type="DICT_TYPE.AI_PLATFORM" :value="scope.row.name"/>
+        </template>
+      </el-table-column>
+
+      <el-table-column label="baseUrl" align="center" prop="baseUrl" min-width="100" />
+
+      <el-table-column label="模型列表" align="center" prop="baseUrl" min-width="100" >
+        <template>
+        </template>
+      </el-table-column>
+
+      <el-table-column label="模型重定向" align="center" prop="baseUrl">
+        <template>
         </template>
       </el-table-column>
 
@@ -177,6 +189,7 @@ const openForm = (type: string, id?: number) => {
 
 /** 删除按钮操作 */
 const handleDelete = async (id: number) => {
+
 
 }
 
