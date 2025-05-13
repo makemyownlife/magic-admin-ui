@@ -1,5 +1,7 @@
 <template>
+
   <Dialog :title="dialogTitle" v-model="dialogVisible">
+
     <el-form
       ref="formRef"
       :model="formData"
@@ -7,6 +9,7 @@
       label-width="120px"
       v-loading="formLoading"
     >
+
       <el-form-item label="所属平台" prop="platform">
         <el-select v-model="formData.platform" placeholder="请输入平台" clearable>
           <el-option
@@ -18,6 +21,7 @@
           />
         </el-select>
       </el-form-item>
+
       <el-form-item label="开启状态" prop="status">
         <el-radio-group v-model="formData.status">
           <el-radio
@@ -39,10 +43,13 @@
 </template>
 
 <script setup lang="ts">
+
 import { ModelApi, ModelVO } from '@/api/ai/model/model'
 
 import { CommonStatusEnum } from '@/utils/constants'
+
 import { DICT_TYPE, getIntDictOptions, getStrDictOptions } from '@/utils/dict'
+
 import { AiModelTypeEnum } from '@/views/ai/utils/constants'
 
 /** API 模型的表单 */
