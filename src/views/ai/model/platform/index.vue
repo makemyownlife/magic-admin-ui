@@ -42,7 +42,7 @@
           type="primary"
           plain
           @click="openForm('create')"
-          v-hasPermi="['ai:model:create']"
+          v-hasPermi="['ai:platform:create']"
         >
           <Icon icon="ep:plus" class="mr-5px"/>
           新增
@@ -64,23 +64,11 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="配置名称" align="center" prop="platform" min-width="50">
-        <template #default="scope">
-          <dict-tag :type="DICT_TYPE.AI_PLATFORM" :value="scope.row.name"/>
-        </template>
-      </el-table-column>
+      <el-table-column label="配置名称" align="center" prop="name" min-width="50" />
 
       <el-table-column label="baseUrl" align="center" prop="baseUrl" min-width="100" />
 
-      <el-table-column label="模型列表" align="center" prop="baseUrl" min-width="100" >
-        <template>
-        </template>
-      </el-table-column>
-
-      <el-table-column label="模型重定向" align="center" prop="baseUrl">
-        <template>
-        </template>
-      </el-table-column>
+      <el-table-column label="模型映射" align="center" prop="modelMappingJson" min-width="100"  />
 
       <el-table-column label="排序" align="center" prop="sort" min-width="80"/>
 
@@ -96,7 +84,7 @@
             link
             type="primary"
             @click="openForm('update', scope.row.id)"
-            v-hasPermi="['ai:model:update']"
+            v-hasPermi="['ai:platform:update']"
           >
             编辑
           </el-button>
@@ -104,7 +92,7 @@
             link
             type="danger"
             @click="handleDelete(scope.row.id)"
-            v-hasPermi="['ai:model:delete']"
+            v-hasPermi="['ai:platform:delete']"
           >
             删除
           </el-button>
@@ -153,7 +141,6 @@ const queryParams = reactive({
   pageNo: 1,
   pageSize: 10,
   name: undefined,
-  model: undefined,
   platform: undefined
 })
 
@@ -163,7 +150,9 @@ const queryFormRef = ref() // 搜索的表单
 const getList = async () => {
   loading.value = true
   try {
-
+    const data = await PlatformApi.getPlatformPage(queryParams)
+    list.value = data.list
+    total.value = data.total
   } finally {
     loading.value = false
   }
@@ -190,12 +179,12 @@ const openForm = (type: string, id?: number) => {
 /** 删除按钮操作 */
 const handleDelete = async (id: number) => {
 
-
 }
 
-// /** 初始化 **/
-// onMounted(async () => {
-//   // await getList()
-//   // 下面代码可以做其他的事情
-// })
+ /** 初始化 **/
+ onMounted(async () => {
+    await getList()
+   // 下面代码可以做其他的事情
+ })
+
 </script>

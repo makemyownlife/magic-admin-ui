@@ -17,9 +17,12 @@
             :key="dict.value"
             :label="dict.label"
             :value="dict.value"
-            :disabled="formData.id"
           />
         </el-select>
+      </el-form-item>
+
+      <el-form-item label="平台名字" prop="name">
+        <el-input v-model="formData.name" placeholder="请输入平台名字" />
       </el-form-item>
 
       <el-form-item label="开启状态" prop="status">
@@ -35,11 +38,14 @@
       </el-form-item>
 
     </el-form>
+
     <template #footer>
       <el-button @click="submitForm" type="primary" :disabled="formLoading">确 定</el-button>
       <el-button @click="dialogVisible = false">取 消</el-button>
     </template>
+
   </Dialog>
+
 </template>
 
 <script setup lang="ts">
@@ -51,9 +57,10 @@ import { CommonStatusEnum } from '@/utils/constants'
 import { DICT_TYPE, getIntDictOptions, getStrDictOptions } from '@/utils/dict'
 
 import { AiModelTypeEnum } from '@/views/ai/utils/constants'
+import {PlatformApi} from "@/api/ai/model/platform";
 
 /** API 模型的表单 */
-defineOptions({ name: 'ModelForm' })
+defineOptions({ name: 'PlatformForm' })
 
 const { t } = useI18n() // 国际化
 
@@ -94,7 +101,7 @@ const open = async (type: string, id?: number) => {
   if (id) {
     formLoading.value = true
     try {
-      formData.value = await ModelApi.getModel(id)
+      formData.value = await PlatformApi.getPlatform(id)
     } finally {
       formLoading.value = false
     }
@@ -140,10 +147,7 @@ const resetForm = () => {
     platform: undefined,
     type: undefined,
     sort: undefined,
-    status: CommonStatusEnum.ENABLE,
-    temperature: undefined,
-    maxTokens: undefined,
-    maxContexts: undefined
+    status: CommonStatusEnum.ENABLE
   }
   formRef.value?.resetFields()
 }
