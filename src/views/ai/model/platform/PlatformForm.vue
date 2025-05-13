@@ -50,14 +50,11 @@
 
 <script setup lang="ts">
 
-import { ModelApi, ModelVO } from '@/api/ai/model/model'
-
 import { CommonStatusEnum } from '@/utils/constants'
 
 import { DICT_TYPE, getIntDictOptions, getStrDictOptions } from '@/utils/dict'
 
-import { AiModelTypeEnum } from '@/views/ai/utils/constants'
-import {PlatformApi} from "@/api/ai/model/platform";
+import {PlatformApi, PlatformVO} from "@/api/ai/model/platform";
 
 /** API 模型的表单 */
 defineOptions({ name: 'PlatformForm' })
@@ -111,23 +108,19 @@ defineExpose({ open }) // 提供 open 方法，用于打开弹窗
 
 /** 提交表单 */
 const emit = defineEmits(['success']) // 定义 success 事件，用于操作成功后的回调
+
 const submitForm = async () => {
   // 校验表单
   await formRef.value.validate()
   // 提交请求
   formLoading.value = true
   try {
-    const data = formData.value as unknown as ModelVO
-    if (data.type !== AiModelTypeEnum.CHAT) {
-      delete data.temperature
-      delete data.maxTokens
-      delete data.maxContexts
-    }
+    const data = formData.value as unknown as PlatformVO
     if (formType.value === 'create') {
-      await ModelApi.createModel(data)
+      await PlatformApi.createPlatform(data)
       message.success(t('common.createSuccess'))
     } else {
-      await ModelApi.updateModel(data)
+      await PlatformApi.updatePlatform(data)
       message.success(t('common.updateSuccess'))
     }
     dialogVisible.value = false
@@ -143,9 +136,7 @@ const resetForm = () => {
   formData.value = {
     id: undefined,
     name: undefined,
-    model: undefined,
     platform: undefined,
-    type: undefined,
     sort: undefined,
     status: CommonStatusEnum.ENABLE
   }

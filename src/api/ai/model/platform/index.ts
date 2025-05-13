@@ -4,6 +4,9 @@ import request from '@/config/axios'
 export interface PlatformVO {
   id: number // 编号
   platform: string // 模型平台
+  name: string // 平台名称
+  modelMappingJson: string // 模型映射
+  baseUrl: string // api请求地址
   sort: number // 排序
   status: number // 状态
 }
@@ -11,14 +14,29 @@ export interface PlatformVO {
 // AI 平台配置
 export const PlatformApi = {
 
-  // 查询模型分页
+  // 分页
   getPlatformPage: async (params: any) => {
     return await request.get({ url: `/ai/platform/page`, params })
   },
 
-  // 查询模型详情
+  // 详情
   getPlatform: async (id: number) => {
     return await request.get({ url: `/ai/platform/get?id=` + id })
   },
+
+  // 新增
+  createPlatform: async (data: PlatformVO) => {
+    return await request.post({ url: `/ai/platform/create`, data })
+  },
+
+  // 修改
+  updatePlatform: async (data: PlatformVO) => {
+    return await request.put({ url: `/ai/platform/update`, data })
+  },
+
+  // 删除模型
+  deletePlatform: async (id: number) => {
+    return await request.delete({ url: `/ai/platform/delete?id=` + id })
+  }
 
 }
