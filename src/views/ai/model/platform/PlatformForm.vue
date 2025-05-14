@@ -98,6 +98,7 @@ import { CommonStatusEnum } from '@/utils/constants'
 import { DICT_TYPE, getIntDictOptions, getStrDictOptions } from '@/utils/dict'
 
 import {PlatformApi, PlatformVO} from "@/api/ai/model/platform";
+
 import {ModelApi, ModelVO} from "@/api/ai/model/model";
 
 /** API 模型的表单 */
@@ -199,6 +200,7 @@ const resetForm = () => {
   formData.value = {
     id: undefined,
     name: undefined,
+    modelIds: undefined,
     platform: undefined,
     sort: undefined,
     status: CommonStatusEnum.ENABLE
