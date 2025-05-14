@@ -32,14 +32,14 @@
       <!-- =========================   所选模型列表 start  =========================  -->
 
       <el-form-item label="模型" prop="keyId">
-        <el-select v-model="formData.keyId" placeholder="请选择平台支持的模型" clearable>
-          <el-option
-            v-for="apiKey in apiKeyList"
-            :key="apiKey.id"
-            :label="apiKey.name"
-            :value="apiKey.id"
-          />
-        </el-select>
+              <el-select v-model="formData.keyId" placeholder="请选择平台支持的模型" clearable>
+                <el-option
+                  v-for="apiKey in apiKeyList"
+                  :key="apiKey.id"
+                  :label="apiKey.name"
+                  :value="apiKey.id"
+                />
+              </el-select>
       </el-form-item>
 
       <!-- =========================   所选模型列表 end  =========================  -->
@@ -103,15 +103,13 @@ const formData = ref({
   status: CommonStatusEnum.ENABLE
 })
 
-const fo rmRules = reactive({
+const formRules = reactive({
   name: [{ required: true, message: '模型名字不能为空', trigger: 'blur' }],
   platform: [{ required: true, message: '平台不能为空', trigger: 'blur' }],
   baseUrl: [{ required: true, message: 'API地址不能为空', trigger: 'blur' }],
   sort: [{ required: true, message: '排序不能为空', trigger: 'blur' }],
   status: [{ required: true, message: '状态不能为空', trigger: 'blur' }]
 })
-
-const formRef = ref() // 表单 Ref
 
 const formRef = ref() // 表单 Ref
 
