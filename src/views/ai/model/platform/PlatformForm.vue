@@ -41,6 +41,25 @@
            />
         </el-select>
 
+        <!-- 添加的模型映射表格 -->
+        <el-table
+          :data="modelMappings"
+          style="width: 100%; margin-top: 15px"
+          border
+          v-if="modelMappings.length > 0"
+        >
+          <el-table-column prop="model" label="模型名" width="200" />
+          <el-table-column label="映射名">
+            <template #default="{ row, $index }">
+              <el-input
+                v-model="row.mappingName"
+                placeholder="请输入映射名"
+                @change="handleMappingChange($index, row)"
+              />
+            </template>
+          </el-table-column>
+        </el-table>
+
       </el-form-item>
 
       <!-- =========================   所选模型列表 end  =========================  -->
@@ -99,6 +118,7 @@ const formType = ref('') // 表单的类型：create - 新增；update - 修改
 const formData = ref({
   id: undefined,
   modelIds: undefined,
+  modelMappings: [] as Array<{id: number, model: string, mappingName: string}>,
   name: undefined,
   platform: undefined,
   baseUrl: undefined,
@@ -118,6 +138,12 @@ const formRules = reactive({
 const formRef = ref() // 表单 Ref
 
 const modelList = ref([] as ModelVO[]) // 模型列表
+
+const modelMappings = ref([] as Array<{id: number, model: string, mappingName: string}>) // 模型映射列表
+
+const handleMappingChange = (index: number, row: {id: number, model: string, mappingName: string}) => {
+  formData.value.modelMappings = modelMappings.value
+}
 
 /** 打开弹窗 */
 const open = async (type: string, id?: number) => {
@@ -184,6 +210,25 @@ const resetForm = () => {
 const doModelMapping =() => {
    console.log("重新渲染 模型重定向!")
 
+  const selectedIds = formData.value.modelIds || []
+
+  // 创建新的映射列表
+  const newMappings = selectedIds.map(id => {
+    const existingMapping = modelMappings.value.find(m => m.id === id)
+    if (existingMapping) {
+      return existingMapping
+    }
+
+    const model = modelList.value.find(m => m.id === id)
+    return {
+      id: id,
+      model: model?.model || '',
+      mappingName: model?.model || '' // 默认映射名为模型名
+    }
+  })
+
+  modelMappings.value = newMappings
+  formData.value.modelMappings = newMappings
 }
 
 </script>
