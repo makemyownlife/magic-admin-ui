@@ -11,7 +11,7 @@
     >
 
       <el-form-item label="所属平台" prop="platform">
-        <el-select v-model="formData.platform" placeholder="请输入平台" clearable>
+        <el-select v-model="formData.platform" placeholder="请输入平台" clearable >
           <el-option
             v-for="dict in getStrDictOptions(DICT_TYPE.AI_PLATFORM)"
             :key="dict.value"
@@ -31,15 +31,15 @@
 
       <!-- =========================   所选模型列表 start  =========================  -->
 
-      <el-form-item label="模型" prop="keyId">
-              <el-select v-model="formData.keyId" placeholder="请选择平台支持的模型" clearable>
-                <el-option
-                  v-for="apiKey in apiKeyList"
-                  :key="apiKey.id"
-                  :label="apiKey.name"
-                  :value="apiKey.id"
-                />
-              </el-select>
+      <el-form-item label="模型" prop="modelIds">
+        <el-select v-model="formData.modelIds" filterable clearable multiple placeholder="请选择平台支持的模型" @change='doModelMapping'>
+           <el-option
+              v-for="model in modelList"
+              :key="model.id"
+              :label="model.model"
+              :value="model.id"
+           />
+        </el-select>
       </el-form-item>
 
       <!-- =========================   所选模型列表 end  =========================  -->
@@ -78,6 +78,7 @@ import { CommonStatusEnum } from '@/utils/constants'
 import { DICT_TYPE, getIntDictOptions, getStrDictOptions } from '@/utils/dict'
 
 import {PlatformApi, PlatformVO} from "@/api/ai/model/platform";
+import {ModelApi, ModelVO} from "@/api/ai/model/model";
 
 /** API 模型的表单 */
 defineOptions({ name: 'PlatformForm' })
@@ -96,6 +97,7 @@ const formType = ref('') // 表单的类型：create - 新增；update - 修改
 
 const formData = ref({
   id: undefined,
+  modelIds: undefined,
   name: undefined,
   platform: undefined,
   baseUrl: undefined,
@@ -106,12 +108,15 @@ const formData = ref({
 const formRules = reactive({
   name: [{ required: true, message: '模型名字不能为空', trigger: 'blur' }],
   platform: [{ required: true, message: '平台不能为空', trigger: 'blur' }],
+  modelIds: [{ required: true, message: '模型不能为空', trigger: 'blur' }],
   baseUrl: [{ required: true, message: 'API地址不能为空', trigger: 'blur' }],
   sort: [{ required: true, message: '排序不能为空', trigger: 'blur' }],
   status: [{ required: true, message: '状态不能为空', trigger: 'blur' }]
 })
 
 const formRef = ref() // 表单 Ref
+
+const modelList = ref([] as ModelVO[]) // 模型列表
 
 /** 打开弹窗 */
 const open = async (type: string, id?: number) => {
@@ -128,7 +133,13 @@ const open = async (type: string, id?: number) => {
       formLoading.value = false
     }
   }
+  // 获得模型下拉列表
+  modelList.value = await ModelApi.getModelSimpleList()
+
+  // 渲染模型映射
+  doModelMapping()
 }
+
 defineExpose({ open }) // 提供 open 方法，用于打开弹窗
 
 /** 提交表单 */
@@ -167,4 +178,11 @@ const resetForm = () => {
   }
   formRef.value?.resetFields()
 }
+
+/** 渲染 模型重定向  **/
+const doModelMapping =() => {
+   console.log("重新渲染 模型重定向!")
+
+}
+
 </script>

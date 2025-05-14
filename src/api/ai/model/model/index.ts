@@ -22,12 +22,9 @@ export const ModelApi = {
   },
 
   // 获得模型列表
-  getModelSimpleList: async (type?: number) => {
+  getModelSimpleList: async () => {
     return await request.get({
-      url: `/ai/model/simple-list`,
-      params: {
-        type
-      }
+      url: `/ai/model/simple-list`
     })
   },
 
