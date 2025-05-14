@@ -25,9 +25,24 @@
         <el-input v-model="formData.name" placeholder="请输入平台名字" />
       </el-form-item>
 
-      <el-form-item label="平台名字" prop="name">
+      <el-form-item label="api访问地址" prop="name">
         <el-input v-model="formData.baseUrl" placeholder="请输入 API 请求地址" />
       </el-form-item>
+
+      <!-- =========================   所选模型列表 start  =========================  -->
+
+      <el-form-item label="模型" prop="keyId">
+        <el-select v-model="formData.keyId" placeholder="请选择平台支持的模型" clearable>
+          <el-option
+            v-for="apiKey in apiKeyList"
+            :key="apiKey.id"
+            :label="apiKey.name"
+            :value="apiKey.id"
+          />
+        </el-select>
+      </el-form-item>
+
+      <!-- =========================   所选模型列表 end  =========================  -->
 
       <el-form-item label="模型排序" prop="sort">
         <el-input-number v-model="formData.sort" placeholder="请输入排序" class="!w-1/1" />
@@ -88,12 +103,15 @@ const formData = ref({
   status: CommonStatusEnum.ENABLE
 })
 
-const formRules = reactive({
+const fo rmRules = reactive({
   name: [{ required: true, message: '模型名字不能为空', trigger: 'blur' }],
-  platform: [{ required: true, message: '所属平台不能为空', trigger: 'blur' }],
+  platform: [{ required: true, message: '平台不能为空', trigger: 'blur' }],
+  baseUrl: [{ required: true, message: 'API地址不能为空', trigger: 'blur' }],
   sort: [{ required: true, message: '排序不能为空', trigger: 'blur' }],
   status: [{ required: true, message: '状态不能为空', trigger: 'blur' }]
 })
+
+const formRef = ref() // 表单 Ref
 
 const formRef = ref() // 表单 Ref
 
