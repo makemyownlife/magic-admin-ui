@@ -25,6 +25,14 @@
         <el-input v-model="formData.name" placeholder="请输入平台名字" />
       </el-form-item>
 
+      <el-form-item label="平台名字" prop="name">
+        <el-input v-model="formData.baseUrl" placeholder="请输入 API 请求地址" />
+      </el-form-item>
+
+      <el-form-item label="模型排序" prop="sort">
+        <el-input-number v-model="formData.sort" placeholder="请输入排序" class="!w-1/1" />
+      </el-form-item>
+
       <el-form-item label="开启状态" prop="status">
         <el-radio-group v-model="formData.status">
           <el-radio
@@ -75,6 +83,7 @@ const formData = ref({
   id: undefined,
   name: undefined,
   platform: undefined,
+  baseUrl: undefined,
   sort: undefined,
   status: CommonStatusEnum.ENABLE
 })

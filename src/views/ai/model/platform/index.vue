@@ -58,7 +58,7 @@
 
     <el-table v-loading="loading" :data="list" :stripe="true" :show-overflow-tooltip="true">
 
-      <el-table-column label="平台名" align="center" prop="platform">
+      <el-table-column label="平台名" align="center" prop="platform" min-width="30">
         <template #default="scope">
           <dict-tag :type="DICT_TYPE.AI_PLATFORM" :value="scope.row.platform"/>
         </template>
@@ -69,8 +69,6 @@
       <el-table-column label="baseUrl" align="center" prop="baseUrl" min-width="100" />
 
       <el-table-column label="模型映射" align="center" prop="modelMappingJson" min-width="100"  />
-
-      <el-table-column label="排序" align="center" prop="sort" min-width="80"/>
 
       <el-table-column label="状态" align="center" prop="status" min-width="80">
         <template #default="scope">
@@ -133,7 +131,7 @@ const {t} = useI18n() // 国际化
 
 const loading = ref(true) // 列表的加载中
 
-const list = ref<ModelVO[]>([]) // 列表的数据
+const list = ref<PlatformVO[]>([]) // 列表的数据
 
 const total = ref(0) // 列表的总页数
 
