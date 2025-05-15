@@ -68,7 +68,16 @@
 
       <el-table-column label="baseUrl" align="center" prop="baseUrl" min-width="100" />
 
-      <el-table-column label="apiKey" align="center" prop="apiKey" min-width="100" />
+      <el-table-column label="apiKey" align="center" prop="apiKey" min-width="100">
+        <template #default="{ row }">
+          <el-popover trigger="click" width="auto">
+            <template #reference>
+              <el-button link type="primary">点击查看</el-button>
+            </template>
+            <div style="max-width: 300px; word-break: break-all;">{{ row.apiKey }}</div>
+          </el-popover>
+        </template>
+      </el-table-column>
 
       <el-table-column label="状态" align="center" prop="status" min-width="80">
         <template #default="scope">
