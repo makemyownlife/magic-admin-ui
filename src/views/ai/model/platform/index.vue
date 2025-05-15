@@ -68,7 +68,7 @@
 
       <el-table-column label="baseUrl" align="center" prop="baseUrl" min-width="100" />
 
-      <el-table-column label="模型映射" align="center" prop="modelMappingJson" min-width="100"  />
+      <el-table-column label="apiKey" align="center" prop="apiKey" min-width="100" />
 
       <el-table-column label="状态" align="center" prop="status" min-width="80">
         <template #default="scope">

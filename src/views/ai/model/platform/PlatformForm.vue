@@ -29,6 +29,10 @@
         <el-input v-model="formData.baseUrl" placeholder="请输入 API 请求地址" />
       </el-form-item>
 
+      <el-form-item label="apiKey" prop="name">
+        <el-input v-model="formData.apiKey" placeholder="请输入 APIKEY" />
+      </el-form-item>
+
       <!-- =========================   所选模型列表 start  =========================  -->
 
       <el-form-item label="模型" prop="modelIds">
@@ -122,6 +126,7 @@ const formData = ref({
   modelMappings: [] as Array<{id: number, model: string, mappingName: string}>,
   name: undefined,
   platform: undefined,
+  apiKey: undefined,
   baseUrl: undefined,
   sort: undefined,
   status: CommonStatusEnum.ENABLE
@@ -131,6 +136,7 @@ const formRules = reactive({
   name: [{ required: true, message: '模型名字不能为空', trigger: 'blur' }],
   platform: [{ required: true, message: '平台不能为空', trigger: 'blur' }],
   modelIds: [{ required: true, message: '模型不能为空', trigger: 'blur' }],
+  apiKey: [{ required: true, message: 'apiKey不能为空', trigger: 'blur' }],
   baseUrl: [{ required: true, message: 'API地址不能为空', trigger: 'blur' }],
   sort: [{ required: true, message: '排序不能为空', trigger: 'blur' }],
   status: [{ required: true, message: '状态不能为空', trigger: 'blur' }]
@@ -202,6 +208,7 @@ const resetForm = () => {
     name: undefined,
     modelIds: undefined,
     platform: undefined,
+    apiKey: undefined,
     sort: undefined,
     status: CommonStatusEnum.ENABLE
   }
