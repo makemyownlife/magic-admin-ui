@@ -58,17 +58,17 @@
 
     <el-table v-loading="loading" :data="list" :stripe="true" :show-overflow-tooltip="true">
 
-      <el-table-column label="平台名" align="center" prop="platform" min-width="30">
+      <el-table-column label="平台名" align="center" prop="platform" min-width="75">
         <template #default="scope">
           <dict-tag :type="DICT_TYPE.AI_PLATFORM" :value="scope.row.platform"/>
         </template>
       </el-table-column>
 
-      <el-table-column label="配置名称" align="center" prop="name" min-width="50" />
+      <el-table-column label="配置名称" align="left" prop="name" min-width="100" />
 
-      <el-table-column label="baseUrl" align="center" prop="baseUrl" min-width="100" />
+      <el-table-column label="baseUrl" align="left" prop="baseUrl" min-width="120" />
 
-      <el-table-column label="apiKey" align="center" prop="apiKey" min-width="100">
+      <el-table-column label="apiKey" align="center" prop="apiKey" min-width="80">
         <template #default="{ row }">
           <el-popover trigger="click" width="auto">
             <template #reference>
@@ -79,13 +79,13 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="状态" align="center" prop="status" min-width="80">
+      <el-table-column label="状态" align="center" prop="status" min-width="70">
         <template #default="scope">
           <dict-tag :type="DICT_TYPE.COMMON_STATUS" :value="scope.row.status"/>
         </template>
       </el-table-column>
 
-      <el-table-column label="操作" align="center" width="180" fixed="right">
+      <el-table-column label="操作" align="center" min-width="120" fixed="right">
         <template #default="scope">
           <el-button
             link

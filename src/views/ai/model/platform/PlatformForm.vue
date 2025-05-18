@@ -47,18 +47,17 @@
 
         <!-- 添加的模型映射表格 -->
         <el-table
-          :data="modelMappings"
+          :data="formData.modelMappings"
           style="width: 100%; margin-top: 15px"
           border
-          v-if="modelMappings.length > 0"
+          v-if="formData.modelMappings.length > 0"
         >
           <el-table-column prop="model" label="模型名" width="200" />
           <el-table-column label="映射名">
-            <template #default="{ row, $index }">
+            <template #default="{ row }">
               <el-input
                 v-model="row.mappingName"
                 placeholder="请输入映射名"
-                @change="handleMappingChange($index, row)"
               />
             </template>
           </el-table-column>
@@ -146,12 +145,6 @@ const formRef = ref() // 表单 Ref
 
 const modelList = ref([] as ModelVO[]) // 模型列表
 
-const modelMappings = ref([] as Array<{id: number, model: string, mappingName: string}>) // 模型映射列表
-
-const handleMappingChange = (index: number, row: {id: number, model: string, mappingName: string}) => {
-  formData.value.modelMappings = modelMappings.value
-}
-
 /** 打开弹窗 */
 const open = async (type: string, id?: number) => {
   dialogVisible.value = true
@@ -207,6 +200,7 @@ const resetForm = () => {
     id: undefined,
     name: undefined,
     modelIds: undefined,
+    modelMappings: [], // 确保这里包含 modelMappings
     platform: undefined,
     apiKey: undefined,
     sort: undefined,
@@ -214,18 +208,24 @@ const resetForm = () => {
   }
   formRef.value?.resetFields()
 }
-
-/** 渲染 模型重定向  **/
-const doModelMapping =() => {
-   console.log("重新渲染 模型重定向!")
+/** 渲染 模型重定向 **/
+const doModelMapping = () => {
+  console.log("重新渲染 模型重定向!")
 
   const selectedIds = formData.value.modelIds || []
 
+  const modelMappings = formData.value.modelMappings
+
   // 创建新的映射列表
   const newMappings = selectedIds.map(id => {
-    const existingMapping = modelMappings.value.find(m => m.id === id)
+    const existingMapping = modelMappings.find(m => m.id === id)
     if (existingMapping) {
-      return existingMapping
+      // 保留现有映射，确保使用 mappingName
+      return {
+        id: existingMapping.id,
+        model: existingMapping.model,
+        mappingName: existingMapping.mappingName // 明确使用 mappingName
+      }
     }
 
     const model = modelList.value.find(m => m.id === id)
