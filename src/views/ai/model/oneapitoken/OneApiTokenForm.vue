@@ -47,7 +47,6 @@
           value-format="x"
           :disabled-date="disabledDate"
         />
-        <span class="ml-10px text-gray-500">留空表示永不过期</span>
       </el-form-item>
     </el-form>
 
