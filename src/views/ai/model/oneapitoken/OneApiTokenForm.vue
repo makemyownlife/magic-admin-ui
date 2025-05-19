@@ -11,16 +11,6 @@
         <el-input v-model="formData.name" placeholder="请输入令牌名称" />
       </el-form-item>
 
-      <el-form-item label="令牌值" prop="token">
-        <el-input
-          v-model="formData.token"
-          placeholder="请输入令牌值"
-          show-password
-          type="textarea"
-          :rows="2"
-        />
-      </el-form-item>
-
       <el-form-item label="模型列表" prop="modelIds">
         <el-select
           v-model="formData.modelIds"
@@ -93,8 +83,7 @@ const formData = ref<AiOneApiTokenVO>({
 
 const formRules = reactive({
   name: [{ required: true, message: '令牌名称不能为空', trigger: 'blur' }],
-  token: [{ required: true, message: '令牌值不能为空', trigger: 'blur' }],
-  modelIds: [{ required: true, message: '请至少选择一个模型', trigger: 'change' }]
+  token: [{ required: true, message: '令牌值不能为空', trigger: 'blur' }]
 })
 
 const formRef = ref()
@@ -116,9 +105,7 @@ const open = async (type: string, id?: number) => {
     try {
       const data = await AiOneApiTokenApi.getToken(id)
       formData.value = {
-        ...data,
-        // 确保modelIds是数组格式
-        modelIds: data.modelIds ? data.modelIds.split(',').map(Number) : []
+        ...data
       }
     } finally {
       formLoading.value = false
