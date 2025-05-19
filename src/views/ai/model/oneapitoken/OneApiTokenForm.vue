@@ -44,7 +44,7 @@
           v-model="formData.expireTime"
           type="datetime"
           placeholder="选择过期时间"
-          value-format="YYYY-MM-DD HH:mm:ss"
+          value-format="x"
           :disabled-date="disabledDate"
         />
         <span class="ml-10px text-gray-500">留空表示永不过期</span>
@@ -83,7 +83,7 @@ const formData = ref<AiOneApiTokenVO>({
 
 const formRules = reactive({
   name: [{ required: true, message: '令牌名称不能为空', trigger: 'blur' }],
-  token: [{ required: true, message: '令牌值不能为空', trigger: 'blur' }]
+  expireTime: [{ required: true, message: '过期时间不能为空', trigger: 'blur' }]
 })
 
 const formRef = ref()
@@ -124,7 +124,7 @@ const submitForm = async () => {
     const data = {
       ...formData.value,
       // 将数组转换为逗号分隔的字符串
-      modelIds: formData.value.modelIds?.join(',')
+     //  modelIds: formData.value.modelIds?.join(',') , 还是传 array 类型
     }
 
     if (formType.value === 'create') {

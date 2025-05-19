@@ -57,14 +57,6 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="模型列表" align="left" prop="modelIds" min-width="150">
-        <template #default="{ row }">
-          <el-tag v-for="model in row.modelIds.split(',')" :key="model" class="mr-5px">
-            {{ model }}
-          </el-tag>
-        </template>
-      </el-table-column>
-
       <el-table-column label="过期时间" align="center" prop="expireTime" min-width="120">
         <template #default="{ row }">
           {{ row.expireTime ? formatDate(row.expireTime) : '永久' }}
