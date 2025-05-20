@@ -11,33 +11,33 @@
         <el-input v-model="formData.name" placeholder="请输入令牌名称" />
       </el-form-item>
 
-      <el-form-item label="模型列表" prop="modelIds">
-        <el-select
-          v-model="formData.modelIds"
-          filterable
-          clearable
-          multiple
-          placeholder="请选择该令牌可访问的模型"
-          @change="updateModelList"
-        >
-          <el-option
-            v-for="model in allModels"
-            :key="model.id"
-            :label="model.model"
-            :value="model.id"
-          />
-        </el-select>
+<!--      <el-form-item label="模型列表" prop="modelIds">-->
+<!--        <el-select-->
+<!--          v-model="formData.modelIds"-->
+<!--          filterable-->
+<!--          clearable-->
+<!--          multiple-->
+<!--          placeholder="请选择该令牌可访问的模型"-->
+<!--          @change="updateModelList"-->
+<!--        >-->
+<!--          <el-option-->
+<!--            v-for="model in allModels"-->
+<!--            :key="model.id"-->
+<!--            :label="model.model"-->
+<!--            :value="model.id"-->
+<!--          />-->
+<!--        </el-select>-->
 
-        <div class="mt-10px" v-if="formData.modelIds?.length">
-          <el-tag
-            v-for="modelId in formData.modelIds"
-            :key="modelId"
-            class="mr-5px mb-5px"
-          >
-            {{ getModelName(modelId) }}
-          </el-tag>
-        </div>
-      </el-form-item>
+<!--        <div class="mt-10px" v-if="formData.modelIds?.length">-->
+<!--          <el-tag-->
+<!--            v-for="modelId in formData.modelIds"-->
+<!--            :key="modelId"-->
+<!--            class="mr-5px mb-5px"-->
+<!--          >-->
+<!--            {{ getModelName(modelId) }}-->
+<!--          </el-tag>-->
+<!--        </div>-->
+<!--      </el-form-item>-->
 
       <el-form-item label="过期时间" prop="expireTime">
         <el-date-picker
