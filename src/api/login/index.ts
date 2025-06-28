@@ -1,5 +1,4 @@
 import request from '@/config/axios'
-import { getRefreshToken } from '@/utils/auth'
 import type { RegisterVO, UserLoginVO } from './types'
 
 export interface SmsCodeVO {
@@ -20,16 +19,6 @@ export const login = (data: UserLoginVO) => {
 // 注册
 export const register = (data: RegisterVO) => {
   return request.post({ url: '/system/auth/register', data })
-}
-
-// 使用租户名，获得租户编号
-export const getTenantIdByName = (name: string) => {
-  return request.get({ url: '/system/tenant/get-id-by-name?name=' + name })
-}
-
-// 使用租户域名，获得租户信息
-export const getTenantByWebsite = (website: string) => {
-  return request.get({ url: '/system/tenant/get-by-website?website=' + website })
 }
 
 // 登出

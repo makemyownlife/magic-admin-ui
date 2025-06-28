@@ -174,11 +174,6 @@ const registerData = reactive({
 const handleRegister = async (params: any) => {
   loading.value = true
   try {
-    if (registerData.tenantEnable) {
-      await getTenantId()
-      registerData.registerForm.tenantId = authUtil.getTenantId()
-    }
-
     if (registerData.captchaEnable) {
       registerData.registerForm.captchaVerification = params.captchaVerification
     }
@@ -223,23 +218,7 @@ const getCode = async () => {
   }
 }
 
-// 获取租户 ID
-const getTenantId = async () => {
-  if (registerData.tenantEnable === 'true') {
-    const res = await LoginApi.getTenantIdByName(registerData.registerForm.tenantName)
-    authUtil.setTenantId(res)
-  }
-}
-
 // 根据域名，获得租户信息
-const getTenantByWebsite = async () => {
-  const website = location.host
-  const res = await LoginApi.getTenantByWebsite(website)
-  if (res) {
-    registerData.registerForm.tenantName = res.name
-    authUtil.setTenantId(res.id)
-  }
-}
 const loading = ref() // ElLoading.service 返回的实例
 
 watch(
@@ -253,7 +232,6 @@ watch(
 )
 onMounted(() => {
   // getCookie()
-  getTenantByWebsite()
 })
 </script>
 

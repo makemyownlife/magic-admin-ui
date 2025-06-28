@@ -205,9 +205,6 @@ const getCode = async () => {
 }
 
 const getSmsCode = async (params) => {
-  if (resetPasswordData.tenantEnable === 'true') {
-    await getTenantId()
-  }
   smsVO.captchaVerification = params.captchaVerification
   smsVO.mobile = resetPasswordData.mobile
   await sendSmsCode(smsVO).then(async () => {
@@ -232,22 +229,10 @@ watch(
   }
 )
 
-const getTenantId = async () => {
-  if (resetPasswordData.tenantEnable === 'true') {
-    const res = await LoginApi.getTenantIdByName(resetPasswordData.tenantName)
-    if (res == null) {
-      message.error(t('login.invalidTenantName'))
-      throw t('login.invalidTenantName')
-    }
-    authUtil.setTenantId(res)
-  }
-}
-
 // 重置密码
 const resetPassword = async () => {
   const data = await validForm()
   if (!data) return
-  await getTenantId()
   loginLoading.value = true
   await smsResetPassword(resetPasswordData)
     .then(async () => {

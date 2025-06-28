@@ -3,13 +3,12 @@ import axios, { AxiosError, AxiosInstance, AxiosResponse, InternalAxiosRequestCo
 import { ElMessage, ElMessageBox, ElNotification } from 'element-plus'
 import qs from 'qs'
 import { config } from '@/config/axios/config'
-import { getAccessToken, getRefreshToken, getTenantId, removeToken, setToken } from '@/utils/auth'
+import { getAccessToken, getRefreshToken, removeToken, setToken } from '@/utils/auth'
 import errorCode from './errorCode'
 
 import { resetRouter } from '@/router'
 import { deleteUserCache } from '@/hooks/web/useCache'
 
-const tenantEnable = import.meta.env.VITE_APP_TENANT_ENABLE
 const { result_code, base_url, request_timeout } = config
 
 // 需要忽略的提示。忽略后，自动 Promise.reject('error')
@@ -51,11 +50,7 @@ service.interceptors.request.use(
     if (getAccessToken() && !isToken) {
       config.headers.Authorization = 'Bearer ' + getAccessToken() // 让每个请求携带自定义token
     }
-    // 设置租户
-    if (tenantEnable && tenantEnable === 'true') {
-      const tenantId = getTenantId()
-      if (tenantId) config.headers['tenant-id'] = tenantId
-    }
+
     const method = config.method?.toUpperCase()
     // 防止 GET 请求缓存
     if (method === 'GET') {
@@ -193,7 +188,6 @@ service.interceptors.response.use(
 )
 
 const refreshToken = async () => {
-  axios.defaults.headers.common['tenant-id'] = getTenantId()
   return await axios.post(base_url + '/system/auth/refresh-token?refreshToken=' + getRefreshToken())
 }
 const handleAuthorized = () => {

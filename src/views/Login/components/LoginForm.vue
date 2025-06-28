@@ -226,13 +226,6 @@ const getCode = async () => {
     verify.value.show()
   }
 }
-// 获取租户 ID
-const getTenantId = async () => {
-  if (loginData.tenantEnable === 'true') {
-    const res = await LoginApi.getTenantIdByName(loginData.loginForm.tenantName)
-    authUtil.setTenantId(res)
-  }
-}
 // 记住我
 const getLoginFormCache = () => {
   const loginForm = authUtil.getLoginForm()
@@ -241,26 +234,16 @@ const getLoginFormCache = () => {
       ...loginData.loginForm,
       username: loginForm.username ? loginForm.username : loginData.loginForm.username,
       password: loginForm.password ? loginForm.password : loginData.loginForm.password,
-      rememberMe: loginForm.rememberMe,
-      tenantName: loginForm.tenantName ? loginForm.tenantName : loginData.loginForm.tenantName
+      rememberMe: loginForm.rememberMe
     }
   }
 }
-// 根据域名，获得租户信息
-const getTenantByWebsite = async () => {
-  const website = location.host
-  const res = await LoginApi.getTenantByWebsite(website)
-  if (res) {
-    loginData.loginForm.tenantName = res.name
-    authUtil.setTenantId(res.id)
-  }
-}
+
 const loading = ref() // ElLoading.service 返回的实例
 // 登录
 const handleLogin = async (params: any) => {
   loginLoading.value = true
   try {
-    await getTenantId()
     const data = await validForm()
     if (!data) {
       return
@@ -298,40 +281,6 @@ const handleLogin = async (params: any) => {
 }
 
 // 社交登录
-const doSocialLogin = async (type: number) => {
-  if (type === 0) {
-    message.error('此方式未配置')
-  } else {
-    loginLoading.value = true
-    if (loginData.tenantEnable === 'true') {
-      // 尝试先通过 tenantName 获取租户
-      await getTenantId()
-      // 如果获取不到，则需要弹出提示，进行处理
-      if (!authUtil.getTenantId()) {
-        try {
-          const data = await message.prompt('请输入租户名称', t('common.reminder'))
-          if (data?.action !== 'confirm') throw 'cancel'
-          const res = await LoginApi.getTenantIdByName(data.value)
-          authUtil.setTenantId(res)
-        } catch (error) {
-          if (error === 'cancel') return
-        } finally {
-          loginLoading.value = false
-        }
-      }
-    }
-    // 计算 redirectUri
-    // tricky: type、redirect需要先encode一次，否则钉钉回调会丢失。
-    // 配合 Login/SocialLogin.vue#getUrlValue() 使用
-    const redirectUri =
-      location.origin +
-      '/social-login?' +
-      encodeURIComponent(`type=${type}&redirect=${redirect.value || '/'}`)
-
-    // 进行跳转
-    window.location.href = await LoginApi.socialAuthRedirect(type, encodeURIComponent(redirectUri))
-  }
-}
 watch(
   () => currentRoute.value,
   (route: RouteLocationNormalizedLoaded) => {
@@ -343,7 +292,6 @@ watch(
 )
 onMounted(() => {
   getLoginFormCache()
-  getTenantByWebsite()
 })
 </script>
 

@@ -233,6 +233,16 @@ const remainingRouter: AppRouteRecordRaw[] = [
     ]
   },
   {
+    path: '/ai',
+    component: Layout,
+    name: 'Ai',
+    meta: {
+      hidden: true
+    },
+    children: [
+    ]
+  },
+  {
     path: '/:pathMatch(.*)*',
     component: () => import('@/views/Error/404.vue'),
     name: '',
