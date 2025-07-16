@@ -211,24 +211,17 @@ let projects = reactive<Project[]>([])
 const getProject = async () => {
   const data = [
     {
-      name: 'vision-ai-admin',
+      name: 'magic-admin',
       icon: 'akar-icons:github-fill',
-      message: 'https://gitcode.com/javayong/vision-ai-admin',
+      message: 'https://github.com/makemyownlife/magic-admin',
       personal: 'Spring Boot 单体架构',
       time: new Date()
     },
     {
-      name: 'vision-ai-admin-ui',
+      name: 'magic-admin-ui',
       icon: 'logos:vue',
-      message: 'https://gitcode.com/javayong/vision-ai-admin-ui',
+      message: 'https://github.com/makemyownlife/magic-admin-ui',
       personal: 'Vue3 + element-plus',
-      time: new Date()
-    },
-    {
-      name: 'vision-ai-nextchat',
-      icon: 'logos:vue',
-      message: 'https://gitcode.com/javayong/vision-ai-nextchat',
-      personal: 'nextjs + react',
       time: new Date()
     }
   ]

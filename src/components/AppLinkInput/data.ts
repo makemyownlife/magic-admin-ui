@@ -75,7 +75,7 @@ export const APP_LINK_GROUP_LIST = [
       },
       {
         name: '客服',
-        path: '/pages/chat/index'
+        path: '/pages/rag/index'
       },
       {
         name: '系统设置',
