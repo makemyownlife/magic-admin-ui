@@ -50,18 +50,16 @@
         v-loading="loading"
         :data="list"
         :stripe="true"
-        :show-overflow-tooltip="true"
         @selection-change="handleRowCheckboxChange"
     >
     <el-table-column type="selection" width="55" />
-      <el-table-column label="主键ID" align="center" prop="id" />
+      <el-table-column label="ID" align="center" prop="id" />
       <el-table-column label="客户端KEY" align="center" prop="clientKey" />
-      <el-table-column label="客户端密钥" align="center" prop="clientSecret" />
       <el-table-column label="授权类型" align="center" prop="grantType" />
       <el-table-column label="设备类型" align="center" prop="deviceType" />
-      <el-table-column label="Token访问超时时间（秒）" align="center" prop="accessTimeout" />
-      <el-table-column label="Token刷新超时时间（秒）" align="center" prop="refreshTimeout" />
-      <el-table-column label="状态（0 正常 1 停用）" align="center" prop="status" />
+      <el-table-column label="Token访问超时时间" align="center" prop="accessTimeout" />
+      <el-table-column label="Token刷新超时时间" align="center" prop="refreshTimeout" />
+      <el-table-column label="状态" align="center" prop="status" />
       <el-table-column
         label="创建时间"
         align="center"
