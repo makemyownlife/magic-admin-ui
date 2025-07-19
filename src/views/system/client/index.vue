@@ -47,18 +47,30 @@
     <el-table-column type="selection" width="55" />
       <el-table-column label="ID" align="center" prop="id" />
       <el-table-column label="客户端KEY" align="center" prop="clientKey" />
-      <el-table-column label="设备类型" align="center" prop="deviceType" />
+      <el-table-column label="设备类型" align="center" prop="deviceType">
+        <template #default="{ row }">
+          <el-tag>
+            {{ formatDeviceType(row.deviceType) }}
+          </el-tag>
+        </template>
+      </el-table-column>
       <el-table-column label="Token访问超时时间" align="center" prop="accessTimeout" />
       <el-table-column label="Token刷新超时时间" align="center" prop="refreshTimeout" />
-      <el-table-column label="状态" align="center" prop="status" />
-      <el-table-column
-        label="创建时间"
-        align="center"
-        prop="createTime"
-        :formatter="dateFormatter"
-        width="180px"
-      />
-      <el-table-column label="操作" align="center" min-width="120px">
+      <el-table-column label="状态" align="center" prop="status" >
+        <template #default="{ row }">
+          <el-tag>
+              {{ formatStatus(row.status) }}
+          </el-tag>
+        </template>
+      </el-table-column>
+<!--      <el-table-column-->
+<!--        label="创建时间"-->
+<!--        align="center"-->
+<!--        prop="createTime"-->
+<!--        :formatter="dateFormatter"-->
+<!--        width="180px"-->
+<!--      />-->
+      <el-table-column label="操作" align="center">
         <template #default="scope">
           <el-button
             link
@@ -195,6 +207,23 @@ const handleExport = async () => {
   } finally {
     exportLoading.value = false
   }
+}
+
+const formatDeviceType = (type: number) => {
+  const deviceTypeMap = {
+    0: 'PC后台',
+    1: 'APP端'
+  }
+  return deviceTypeMap[type] || '未知类型'
+}
+
+/** 状态格式化 */
+const formatStatus = (status: number) => {
+  const statusMap = {
+    0: '正常',
+    1: '停用'
+  }
+  return statusMap[status] || '未知状态'
 }
 
 /** 初始化 **/
