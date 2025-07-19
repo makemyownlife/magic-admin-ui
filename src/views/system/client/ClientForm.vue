@@ -4,8 +4,8 @@
       ref="formRef"
       :model="formData"
       :rules="formRules"
-      label-width="100px"
       v-loading="formLoading"
+      label-width="200px"
     >
       <el-form-item label="客户端KEY" prop="clientKey">
         <el-input v-model="formData.clientKey" placeholder="请输入客户端KEY" />
@@ -13,35 +13,41 @@
       <el-form-item label="客户端密钥" prop="clientSecret">
         <el-input v-model="formData.clientSecret" placeholder="请输入客户端密钥" />
       </el-form-item>
-      <el-form-item label="授权类型" prop="grantType">
-        <el-select v-model="formData.grantType" placeholder="请选择授权类型">
-          <el-option label="请选择字典生成" value="" />
-        </el-select>
-      </el-form-item>
+
       <el-form-item label="设备类型" prop="deviceType">
         <el-select v-model="formData.deviceType" placeholder="请选择设备类型">
           <el-option label="请选择字典生成" value="" />
         </el-select>
       </el-form-item>
+
       <el-form-item label="Token访问超时时间（秒）" prop="accessTimeout">
         <el-input v-model="formData.accessTimeout" placeholder="请输入Token访问超时时间（秒）" />
       </el-form-item>
+
       <el-form-item label="Token刷新超时时间（秒）" prop="refreshTimeout">
         <el-input v-model="formData.refreshTimeout" placeholder="请输入Token刷新超时时间（秒）" />
       </el-form-item>
-      <el-form-item label="状态（0 正常 1 停用）" prop="status">
-        <el-radio-group v-model="formData.status">
-          <el-radio value="1">请选择字典生成</el-radio>
-        </el-radio-group>
+
+      <el-form-item label="状态" prop="status">
+        <el-select v-model="formData.status" placeholder="请选择状态">
+          <el-option label="正常" :value="0" />
+          <el-option label="停用" :value="1" />
+        </el-select>
       </el-form-item>
+
     </el-form>
+
     <template #footer>
       <el-button @click="submitForm" type="primary" :disabled="formLoading">确 定</el-button>
       <el-button @click="dialogVisible = false">取 消</el-button>
     </template>
+
   </Dialog>
+
 </template>
+
 <script setup lang="ts">
+
 import { ClientApi, Client } from '@/api/system/client'
 
 /** 系统客户端 表单 */
@@ -64,6 +70,7 @@ const formData = ref({
   refreshTimeout: undefined,
   status: undefined
 })
+
 const formRules = reactive({
 })
 const formRef = ref() // 表单 Ref
@@ -124,4 +131,5 @@ const resetForm = () => {
   }
   formRef.value?.resetFields()
 }
+
 </script>

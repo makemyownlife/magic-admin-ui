@@ -7,18 +7,10 @@
       ref="queryFormRef"
       :inline="true"
     >
+
       <el-form-item label="客户端KEY" prop="clientKey">
         <el-input
           v-model="queryParams.clientKey"
-          placeholder=""
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
-      </el-form-item>
-      <el-form-item label="客户端密钥" prop="clientSecret">
-        <el-input
-          v-model="queryParams.clientSecret"
           placeholder=""
           clearable
           @keyup.enter="handleQuery"
@@ -55,7 +47,6 @@
     <el-table-column type="selection" width="55" />
       <el-table-column label="ID" align="center" prop="id" />
       <el-table-column label="客户端KEY" align="center" prop="clientKey" />
-      <el-table-column label="授权类型" align="center" prop="grantType" />
       <el-table-column label="设备类型" align="center" prop="deviceType" />
       <el-table-column label="Token访问超时时间" align="center" prop="accessTimeout" />
       <el-table-column label="Token刷新超时时间" align="center" prop="refreshTimeout" />
