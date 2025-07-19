@@ -7,31 +7,33 @@
       v-loading="formLoading"
       label-width="200px"
     >
-      <el-form-item label="客户端KEY" prop="clientKey">
-        <el-input v-model="formData.clientKey" placeholder="请输入客户端KEY" />
+      <el-form-item label="客户端KEY" prop="clientKey"  >
+        <el-input v-model="formData.clientKey" placeholder="请输入客户端KEY"  :disabled="formType === 'update'"/>
       </el-form-item>
-      <el-form-item label="客户端密钥" prop="clientSecret">
-        <el-input v-model="formData.clientSecret" placeholder="请输入客户端密钥" />
+
+      <el-form-item label="客户端密钥" prop="clientSecret"          >
+        <el-input v-model="formData.clientSecret" placeholder="请输入客户端密钥"  :disabled="formType === 'update'"/>
       </el-form-item>
 
       <el-form-item label="设备类型" prop="deviceType">
         <el-select v-model="formData.deviceType" placeholder="请选择设备类型">
-          <el-option label="请选择字典生成" value="" />
+          <el-option label="PC后台" :value="0"/>
+          <el-option label="APP端" :value="1"/>
         </el-select>
       </el-form-item>
 
       <el-form-item label="Token访问超时时间（秒）" prop="accessTimeout">
-        <el-input v-model="formData.accessTimeout" placeholder="请输入Token访问超时时间（秒）" />
+        <el-input v-model="formData.accessTimeout" placeholder="请输入Token访问超时时间（秒）"/>
       </el-form-item>
 
       <el-form-item label="Token刷新超时时间（秒）" prop="refreshTimeout">
-        <el-input v-model="formData.refreshTimeout" placeholder="请输入Token刷新超时时间（秒）" />
+        <el-input v-model="formData.refreshTimeout" placeholder="请输入Token刷新超时时间（秒）"/>
       </el-form-item>
 
       <el-form-item label="状态" prop="status">
         <el-select v-model="formData.status" placeholder="请选择状态">
-          <el-option label="正常" :value="0" />
-          <el-option label="停用" :value="1" />
+          <el-option label="正常" :value="0"/>
+          <el-option label="停用" :value="1"/>
         </el-select>
       </el-form-item>
 
@@ -47,13 +49,12 @@
 </template>
 
 <script setup lang="ts">
-
-import { ClientApi, Client } from '@/api/system/client'
+import {ClientApi, Client} from '@/api/system/client'
 
 /** 系统客户端 表单 */
-defineOptions({ name: 'ClientForm' })
+defineOptions({name: 'ClientForm'})
 
-const { t } = useI18n() // 国际化
+const {t} = useI18n() // 国际化
 const message = useMessage() // 消息弹窗
 
 const dialogVisible = ref(false) // 弹窗的是否展示
@@ -71,8 +72,7 @@ const formData = ref({
   status: undefined
 })
 
-const formRules = reactive({
-})
+const formRules = reactive({})
 const formRef = ref() // 表单 Ref
 
 /** 打开弹窗 */
@@ -90,8 +90,13 @@ const open = async (type: string, id?: number) => {
       formLoading.value = false
     }
   }
+  else {
+    // 新增时自动生成 clientKey 和 clientSecret
+    formData.value.clientKey = generateClientKey()
+    formData.value.clientSecret = generateClientSecret()
+  }
 }
-defineExpose({ open }) // 提供 open 方法，用于打开弹窗
+defineExpose({open}) // 提供 open 方法，用于打开弹窗
 
 /** 提交表单 */
 const emit = defineEmits(['success']) // 定义 success 事件，用于操作成功后的回调
@@ -130,6 +135,30 @@ const resetForm = () => {
     status: undefined
   }
   formRef.value?.resetFields()
+}
+
+/** 生成随机的 clientKey (32位) */
+/** 生成随机字符串 */
+const generateRandomString = (length: number) => {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+  let result = ''
+  const crypto = window.crypto || (window as any).msCrypto
+  const values = new Uint32Array(length)
+  crypto.getRandomValues(values)
+  for (let i = 0; i < length; i++) {
+    result += chars[values[i] % chars.length]
+  }
+  return result
+}
+
+/** 生成随机的 clientKey (32位) */
+const generateClientKey = () => {
+  return generateRandomString(32)
+}
+
+/** 生成随机的 clientSecret */
+const generateClientSecret = () => {
+  return generateRandomString(64)
 }
 
 </script>
