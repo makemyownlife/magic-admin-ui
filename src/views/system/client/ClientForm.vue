@@ -15,8 +15,8 @@
         <el-input v-model="formData.clientSecret" placeholder="请输入客户端密钥"  :disabled="formType === 'update'"/>
       </el-form-item>
 
-      <el-form-item label="设备类型" prop="deviceType">
-        <el-select v-model="formData.deviceType" placeholder="请选择设备类型">
+      <el-form-item label="设备类型" prop="deviceType" >
+        <el-select v-model="formData.deviceType" placeholder="请选择设备类型" :disabled="formType === 'update'">
           <el-option label="PC后台" :value="0"/>
           <el-option label="APP端" :value="1"/>
         </el-select>
@@ -31,7 +31,7 @@
       </el-form-item>
 
       <el-form-item label="状态" prop="status">
-        <el-select v-model="formData.status" placeholder="请选择状态">
+        <el-select v-model="formData.status" placeholder="请选择状态" :disabled="formData.id === 1">
           <el-option label="正常" :value="0"/>
           <el-option label="停用" :value="1"/>
         </el-select>
