@@ -1,6 +1,8 @@
+本项目是 [magic-admin](https://github.com/makemyownlife/magic-admin) 项目的前端 ，基于 Vue3 + element-plus 实现 。 
 
-## 依赖安装 & 运行
-* nodejs > 16.18.0 && pnpm > 8.6.0 (强制使用pnpm)
+## 依赖 & 运行
+
+请确保本地 nodejs > 16.18.0 && pnpm > 8.6.0 (强制使用pnpm)  。
 
 ```bash
 pnpm install
@@ -23,3 +25,9 @@ npm run dev
 系统接口：根据业务代码自动生成相关的api接口文档。
 在线构建器：拖动表单元素生成相应的HTML代码。
 客户端管理：配置系统客户端信息。
+
+## 在线体验
+演示地址：http://14.103.184.174/index
+演示账号请关注公众号：勇哥Java实战，回复：magic 即可获取。 
+
+![](https://courage-zhang.oss-cn-beijing.aliyuncs.com/custom202504/202507241651691.jpeg)
